@@ -35,10 +35,6 @@ PLUGINS = ['ipynb.markup','filetime_from_git']
 # Social widget
 SOCIAL = (('github', 'https://github.com/adamsaleh'),)
 
-DEFAULT_METADATA = {
-    'status': 'draft',
-}
-
 MENUITEMS = (('Archives', '/archives.html'),
              ('Categories', '/categories.html'),
              ('Tags', '/tags.html'),)
