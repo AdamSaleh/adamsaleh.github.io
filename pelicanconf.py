@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Adam Saleh'
 SITENAME = 'asaleh/notebook'
-SITEURL = 'https://jupyter-blog-adamsaleh.c9users.io'
+SITEURL = 'https://adamsaleh.github.io/'
 SITETITLE = AUTHOR
 SITESUBTITLE = 'QE Engineer'
 SITEDESCRIPTION = 'Programming Languages Enthusiast'
