@@ -9,7 +9,7 @@ SITETITLE = AUTHOR
 SITESUBTITLE = 'QE Engineer'
 SITEDESCRIPTION = 'Programming Languages Enthusiast'
 
-THEME = '/usr/local/lib/python3.4/dist-packages/pelican/themes/Flex'
+THEME = './Flex'
 
 PATH = 'content'
 SITELOGO = SITEURL + '/images/profile.png'
@@ -25,10 +25,12 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-PLUGIN_PATHS = ['/home/ubuntu/workspace/adamsaleh/plugins']
 MARKUP = ('md', 'ipynb')
 
-PLUGINS = ['ipynb.markup','filetime_from_git']
+PLUGIN_PATH = './plugins'
+
+
+PLUGINS = ['ipynb.markup']
 
 # Blogroll
 
