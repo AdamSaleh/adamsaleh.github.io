@@ -1,0 +1,8 @@
+Title: Applicative parser combinators in Python
+Slug: applicative-parser-python
+Category: posts
+Tags: python
+Status: draft
+Author: me
+Date: 2016/12/9
+Summary: Using Applicative Functors to build parsers in Python
