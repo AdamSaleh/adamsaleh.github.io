@@ -1,0 +1,4 @@
+Sitemap: http://asaleh.net/sitemapindex.xml
+
+User-Agent: *
+Host: asaleh.net

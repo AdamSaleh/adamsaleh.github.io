@@ -1,0 +1,59 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BLOG_AUTHOR	../conf.py	/^BLOG_AUTHOR = "Adam Saleh"  # (translatable)$/;"	kind:variable	line:20
+BLOG_DESCRIPTION	../conf.py	/^BLOG_DESCRIPTION = "Programing notes of Adam Saleh"  # (translatable)$/;"	kind:variable	line:29
+BLOG_EMAIL	../conf.py	/^BLOG_EMAIL = "adam@asaleh.net"$/;"	kind:variable	line:28
+BLOG_TITLE	../conf.py	/^BLOG_TITLE = "Adam Saleh's notes"  # (translatable)$/;"	kind:variable	line:21
+CATEGORY_ALLOW_HIERARCHIES	../conf.py	/^CATEGORY_ALLOW_HIERARCHIES = False$/;"	kind:variable	line:442
+CATEGORY_OUTPUT_FLAT_HIERARCHY	../conf.py	/^CATEGORY_OUTPUT_FLAT_HIERARCHY = False$/;"	kind:variable	line:445
+COMMENT_SYSTEM	../conf.py	/^COMMENT_SYSTEM = ""$/;"	kind:variable	line:956
+COMMENT_SYSTEM_ID	../conf.py	/^COMMENT_SYSTEM_ID = ""$/;"	kind:variable	line:961
+COMPILERS	../conf.py	/^COMPILERS = {$/;"	kind:variable	line:267
+CONTENT_FOOTER_FORMATS	../conf.py	/^CONTENT_FOOTER_FORMATS = {$/;"	kind:variable	line:934
+DEFAULT_LANG	../conf.py	/^DEFAULT_LANG = "en"$/;"	kind:variable	line:89
+FEED_LINKS_APPEND_QUERY	../conf.py	/^FEED_LINKS_APPEND_QUERY = False$/;"	kind:variable	line:906
+FRONT_INDEX_HEADER	../conf.py	/^FRONT_INDEX_HEADER = {$/;"	kind:variable	line:512
+GITHUB_COMMIT_SOURCE	../conf.py	/^GITHUB_COMMIT_SOURCE = True$/;"	kind:variable	line:606
+GITHUB_DEPLOY_BRANCH	../conf.py	/^GITHUB_DEPLOY_BRANCH = 'master'$/;"	kind:variable	line:599
+GITHUB_REMOTE_NAME	../conf.py	/^GITHUB_REMOTE_NAME = 'origin'$/;"	kind:variable	line:602
+GITHUB_SOURCE_BRANCH	../conf.py	/^GITHUB_SOURCE_BRANCH = 'src'$/;"	kind:variable	line:598
+GLOBAL_CONTEXT	../conf.py	/^GLOBAL_CONTEXT = {}$/;"	kind:variable	line:1322
+GLOBAL_CONTEXT_FILLER	../conf.py	/^GLOBAL_CONTEXT_FILLER = []$/;"	kind:variable	line:1327
+HIDDEN_AUTHORS	../conf.py	/^HIDDEN_AUTHORS = ['Guest']$/;"	kind:variable	line:503
+HIDDEN_CATEGORIES	../conf.py	/^HIDDEN_CATEGORIES = []$/;"	kind:variable	line:472
+HIDDEN_TAGS	../conf.py	/^HIDDEN_TAGS = ['mathjax']$/;"	kind:variable	line:413
+IMAGE_FOLDERS	../conf.py	/^IMAGE_FOLDERS = {'images': 'images'}$/;"	kind:variable	line:767
+INDEX_TEASERS	../conf.py	/^INDEX_TEASERS = True$/;"	kind:variable	line:879
+LICENSE	../conf.py	/^LICENSE = ""$/;"	kind:variable	line:910
+MARKDOWN_EXTENSIONS	../conf.py	/^MARKDOWN_EXTENSIONS = ['fenced_code', 'codehilite', 'extra']$/;"	kind:variable	line:1080
+NAVIGATION_LINKS	../conf.py	/^NAVIGATION_LINKS = {$/;"	kind:variable	line:135
+PAGES	../conf.py	/^PAGES = ($/;"	kind:variable	line:193
+POSTS	../conf.py	/^POSTS = ($/;"	kind:variable	line:187
+POSTS_SECTIONS	../conf.py	/^POSTS_SECTIONS = True$/;"	kind:variable	line:321
+PRETTY_URLS	../conf.py	/^PRETTY_URLS = True$/;"	kind:variable	line:1011
+REDIRECTIONS	../conf.py	/^REDIRECTIONS = []$/;"	kind:variable	line:576
+RSS_COPYRIGHT_FORMATS	../conf.py	/^RSS_COPYRIGHT_FORMATS = CONTENT_FOOTER_FORMATS$/;"	kind:variable	line:950
+RSS_COPYRIGHT_PLAIN	../conf.py	/^RSS_COPYRIGHT_PLAIN = 'Contents © {date} {author} {license}'$/;"	kind:variable	line:949
+SITE_URL	../conf.py	/^SITE_URL = "http:\/\/asaleh.net\/"$/;"	kind:variable	line:24
+STRIP_INDEXES	../conf.py	/^STRIP_INDEXES = True$/;"	kind:variable	line:990
+THEME	../conf.py	/^THEME = "maupassant"$/;"	kind:variable	line:146
+THEME_COLOR	../conf.py	/^THEME_COLOR = '#5670d4'$/;"	kind:variable	line:151
+TIMEZONE	../conf.py	/^TIMEZONE = "Europe\/Prague"$/;"	kind:variable	line:209
+TRANSLATIONS	../conf.py	/^TRANSLATIONS = {$/;"	kind:variable	line:94
+TRANSLATIONS_PATTERN	../conf.py	/^TRANSLATIONS_PATTERN = "{path}.{lang}.{ext}"$/;"	kind:variable	line:108
+UNSLUGIFY_TITLES	../conf.py	/^UNSLUGIFY_TITLES = True$/;"	kind:variable	line:1233
+USE_BASE_TAG	../conf.py	/^USE_BASE_TAG = False$/;"	kind:variable	line:554
+WRITE_TAG_CLOUD	../conf.py	/^WRITE_TAG_CLOUD = True$/;"	kind:variable	line:317
+conf.py	../conf.py	1;"	kind:file	line:1
+hello	../listings/hello.py	/^def hello(name='world'):$/;"	kind:function	line:6
+hello	../output/listings/hello.py	/^def hello(name='world'):$/;"	kind:function	line:6
+hello.py	../listings/hello.py	1;"	kind:file	line:1
+hello.py	../output/listings/hello.py	1;"	kind:file	line:1
+sys	../listings/hello.py	/^import sys$/;"	kind:namespace	line:3
+sys	../output/listings/hello.py	/^import sys$/;"	kind:namespace	line:3
+time	../conf.py	/^import time$/;"	kind:namespace	line:4
+unicode_literals	../conf.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3

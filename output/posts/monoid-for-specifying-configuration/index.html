@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monoid for specifying configuration | Adam Saleh's notes</title>
+<link href="../../assets/css/theme.css" type="text/css" rel="stylesheet">
+<link href="../../assets/css/pure.css" type="text/css" rel="stylesheet">
+<link href="../../assets/css/style.css" type="text/css" rel="stylesheet">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://asaleh.net/posts/monoid-for-specifying-configuration/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Adam Saleh">
+<link rel="prev" href="../applicative-pattern-in-python/" title="Applicative pattern in Python" type="text/html">
+<link rel="next" href="../applicative-pattern-for-reactive-programming/" title="Applicative pattern for reactive programming" type="text/html">
+<meta property="og:site_name" content="Adam Saleh's notes">
+<meta property="og:title" content="Monoid for specifying configuration">
+<meta property="og:url" content="http://asaleh.net/posts/monoid-for-specifying-configuration/">
+<meta property="og:description" content="Monoid to make a configuration dsl¶If you have read Gabriels presentation, you might think, that I would be trying to create monoid for combining event streams. Unfortunately, I don't think I am hard-">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2017-05-21T20:55:30+02:00">
+</head>
+<body>
+<div class="body_container">
+    <div id="header">
+        <div class="site-name">
+                <a id="logo" href="http://asaleh.net/"><h1>Adam Saleh's notes</h1></a>
+        </div>
+
+        <div id="nav-menu">
+            <div class="bitcron_nav_container">
+                <div class="bitcron_nav">
+                    <div class="site_nav_wrap">
+                        <ul class="site_nav sm sm-base">
+<li><a href="../../pages/about/" class="nav__item">About</a></li>
+            <li><a href="../../pages/algebraic-patterns/" class="nav__item">Algebraic patterns</a></li>
+            <li><a href="../../archive.html" class="nav__item">Archive</a></li>
+            <li><a href="../../categories/" class="nav__item">Tags</a></li>
+            <li><a href="../../rss.xml" class="nav__item">RSS feed</a></li>
+
+                            
+                        </ul>
+<div class="clear clear_nav_inline_end"></div>
+                    </div>
+                </div>
+                <div class="clear clear_nav_end"></div>
+            </div>
+        </div>
+    </div>
+    <div id="layout">
+        <div class="pure-g">
+            <div class=" pure-u-24-24 pure-u-sm-24-24 pure-u-md-18-24 pure_cell">
+                <div class="content_container">
+                    <!--Body content-->
+                    <div class="row">
+                        
+                        
+<div class="post post-page">
+    
+    <header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Monoid for specifying configuration</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Adam Saleh
+            </span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2017-05-21T20:55:30+02:00" itemprop="datePublished" title="2017-05-21 20:55">2017-05-21 20:55</time></a></p>
+            
+        <p class="sourceline"><a href="index.ipynb" id="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="post-content">
+        <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Monoid-to-make-a-configuration-dsl">Monoid to make a configuration dsl<a class="anchor-link" href="#Monoid-to-make-a-configuration-dsl">¶</a>
+</h2>
+<p>If you have read <a href="https://github.com/Gabriel439/slides/blob/master/lambdaconf/category/category.md#new-monoid-transaction">Gabriels presentation</a>, you might think, that I would be trying to create monoid for combining event streams. Unfortunately, I don't think I am hard-core enough to do that in Python.</p>
+<p>On the other hand, writing a tiny config library sounds like a bit of harmless fun.
+ <!-- TEASER_END -->
+So, we will need the mappend function again.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">singledispatch</span>
+
+<span class="nd">@singledispatch</span>
+<span class="k">def</span> <span class="nf">mappend</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">"Not implemented for"</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This lets us define mconcat.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mconcat</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">mappend</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">acc</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For the configuration, we would need:</p>
+<ul>
+<li>lists</li>
+<li>dictionaries</li>
+<li>functions to process things</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@mappend</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="nd">@mappend</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">b</span><span class="p">}</span>
+
+<span class="nd">@mappend</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">mconcat</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">a_r</span><span class="o">=</span> <span class="n">a</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">b_r</span><span class="o">=</span><span class="n">b</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mappend</span><span class="p">(</span><span class="n">a_r</span><span class="p">,</span><span class="n">b_r</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we could create a generic function, i.e. askFor:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">askFor</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getAnswer</span><span class="p">():</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">answer</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">getAnswer</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">askAll</span> <span class="o">=</span> <span class="n">mconcat</span><span class="p">([</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'name'</span><span class="p">),</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'age'</span><span class="p">),</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'email'</span><span class="p">)</span>
+    <span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">askAll</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>namea
+agea
+emaila
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[6]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'age': 'a', 'email': 'a', 'name': 'a'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What we could do now, instead of asking for input manually, we could pass in a config string and parse it. I will first create the config string, with a simple structure "key:value" on each line.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">name:eve</span>
+<span class="s2">age:16</span>
+<span class="s2">dance:swing</span>
+<span class="s2">"""</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now I can create a simple parsing function, where I can input the key, and it will return the value.
+Actually, it will return a parser that takes the string produces a dictionary with single KV pair, but thats almost the same, just more composable :)</p>
+<p>And for now, if it doesn't find the key, it produces empty dictionary.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">parseFor</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getAnswer</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'(?&lt;='</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">').*'</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">getAnswer</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parseAll</span> <span class="o">=</span> <span class="n">mconcat</span><span class="p">([</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'name'</span><span class="p">),</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'age'</span><span class="p">),</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'email'</span><span class="p">)</span>
+    <span class="p">])</span>
+
+<span class="n">parseAll</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[9]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'age': ':16', 'name': ':eve'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And because in our parsing functions we get the whole config, we could parse different things as well. For example we could get names of all of the keys.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getKeys</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"keys"</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":.*</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span><span class="n">config</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">!=</span> <span class="s2">""</span><span class="p">]}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parseAll</span> <span class="o">=</span> <span class="n">mconcat</span><span class="p">([</span><span class="n">parseFor</span><span class="p">(</span><span class="s1">'name'</span><span class="p">),</span><span class="n">getKeys</span><span class="p">])</span>
+
+<span class="n">parseAll</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[11]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'keys': ['name', 'age', 'dance'], 'name': ':eve'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Better-config-object?">Better config object?<a class="anchor-link" href="#Better-config-object?">¶</a>
+</h3>
+<p>Another observation we can make, is that we can create an alternative interpretation of dicitonary mappend, where don't just over-write the latter, but we assume that values of the dictionary are monoids themselves. This means we can mappend them again :-)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@mappend</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">b</span><span class="p">,</span><span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">mappend</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">a</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">b</span><span class="p">}}</span>
+    
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We could then have additional alternative implementation for our function mappend.
+Our new mappend would return the result of the first function, that doesn't return <code>none</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@mappend</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">mconcat</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">a_r</span><span class="o">=</span> <span class="n">a</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">a_r</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a_r</span><span class="p">;</span>
+    <span class="n">b_r</span><span class="o">=</span><span class="n">b</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">b_r</span>
+  <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This way we can flip the building blocks for our little dsl.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">askFor</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getAnswer</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">answer</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">getAnswer</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">parseFor</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getAnswer</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'(?&lt;='</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">').*'</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span> 
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">getAnswer</span><span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We could create one more</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parseAll</span> <span class="o">=</span> <span class="n">mconcat</span><span class="p">([</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'name'</span><span class="p">),</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'name'</span><span class="p">),</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'age'</span><span class="p">),</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'age'</span><span class="p">),</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'email'</span><span class="p">),</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'email'</span><span class="p">)</span>
+    <span class="p">])</span>
+
+<span class="n">parseAll</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[15]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'age': &lt;function __main__._.&lt;locals&gt;.result&gt;,
+ 'email': &lt;function __main__._.&lt;locals&gt;.result&gt;,
+ 'name': &lt;function __main__._.&lt;locals&gt;.result&gt;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The drawback is, that now we have dictionary of functions, where previously we had just a singe funciton that got us our config. We an still implement that:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getConfig</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">parser</span><span class="p">[</span><span class="n">k</span><span class="p">](</span><span class="n">config</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">parser</span><span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Way we implemented this (dictionary keys get mappended and the first return from a funcion wins) we should only be prompted for the email, and rest of this should be parsed from config.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getConfig</span><span class="p">(</span><span class="n">parseAll</span><span class="p">,</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>emaila
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[18]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'age': ':16', 'email': 'a', 'name': ':eve'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parseAll2</span> <span class="o">=</span> <span class="n">mconcat</span><span class="p">([</span>
+        <span class="n">mappend</span><span class="p">(</span><span class="n">parseFor</span><span class="p">,</span><span class="n">askFor</span><span class="p">)(</span><span class="s1">'name'</span><span class="p">),</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'age'</span><span class="p">),</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'age'</span><span class="p">),</span>
+        <span class="n">parseFor</span><span class="p">(</span><span class="s1">'email'</span><span class="p">),</span>
+        <span class="n">askFor</span><span class="p">(</span><span class="s1">'email'</span><span class="p">)</span>
+    <span class="p">])</span>
+
+<span class="n">getConfig</span><span class="p">(</span><span class="n">parseAll2</span><span class="p">,</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>emaila
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[19]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'age': ':16', 'email': 'a', 'name': ':eve'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now I have a litle dsl where:</p>
+<ul>
+<li>the building blocks are nice, and I can just <code>mconcat</code> them together</li>
+<li>
+<p>if I want to add new building block, it just needs to</p>
+<ul>
+<li>accept the config-string</li>
+<li>return a KV dict</li>
+</ul>
+<p>On the other hand, it has no error handling, it is kind-of inefficient, and in practce would be just a useless toy. But there ae more powerful abstractions that would help us with this. Next time, functors?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </div>
+  </div>
+
+    </div>
+    <div class="postpromonav">
+        <nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../applicative-pattern-in-python/" rel="prev" title="Applicative pattern in Python">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../applicative-pattern-for-reactive-programming/" rel="next" title="Applicative pattern for reactive programming">Next post</a>
+            </li>
+        </ul></nav>
+</div>
+    
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script><script type="text/x-mathjax-config">
+            MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+            </script>
+</div>
+
+                </div>
+                <!--End of body content-->
+                <div style="clear:both;height:0;"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+
+        <div class=" pure-u-6-24 pure_cell">
+            <div id="sidebar">
+                <div class="widget">
+                    <div id="search_bar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        Contents © 2017         <a href="mailto:adam@">Adam Saleh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+        
+    </div>
+
+    <!--FIXME: put these somewhere                            -->
+    <!--%if len(translations) > 1:-->
+    <!--<li>
+</li>-->
+    <!--%endif-->
+    <!--% if show_sourcelink:-->
+    <!---->
+    <!--%endif-->
+    <link href="../../assets/css/duoshuo.css" type="text/css" rel="stylesheet">
+<script src="../../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</div>
+</div>
+</body>
+</html>
