@@ -15,7 +15,7 @@ ${template_hooks['extra_head']()}
             %if logo_url:
             <a id="logo" href="${blog_url}"><img src="${logo_url}" alt="${blog_title|h}"></a>
             %else:
-                <h1>${blog_title|h}</h1>
+                <a id="logo" href="${blog_url}"><h1>${blog_title|h}</h1></a>
             %endif
         </div>
 

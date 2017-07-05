@@ -25,8 +25,8 @@ SITE_URL = "http://asaleh.net/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://asaleh.net/"
-BLOG_EMAIL = "adam@asaleh.net"
-BLOG_DESCRIPTION = "This is a demo site for Nikola."  # (translatable)
+BLOG_EMAIL = "adam@"
+BLOG_DESCRIPTION = "Programing notes of Adam Saleh"  # (translatable)
 
 # Nikola is multilingual!
 #
@@ -134,6 +134,8 @@ TRANSLATIONS_PATTERN = "{path}.{lang}.{ext}"
 
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
+        ("/pages/about/", "About"),
+        ("/pages/algebraic-patterns/", "Algebraic patterns"),
         ("/archive.html", "Archive"),
         ("/categories/", "Tags"),
         ("/rss.xml", "RSS feed"),
@@ -142,6 +144,7 @@ NAVIGATION_LINKS = {
 
 # Name of the theme to use.
 THEME = "maupassant"
+# THEME = "bootstrap3"
 
 # Primary color of your theme. This will be used to customize your theme and
 # auto-generate related colors in POSTS_SECTION_COLORS. Must be a HEX value.
@@ -873,7 +876,7 @@ IMAGE_FOLDERS = {'images': 'images'}
 # )
 
 # Show teasers (instead of full posts) in indexes? Defaults to False.
-# INDEX_TEASERS = False
+INDEX_TEASERS = True
 
 # HTML fragments with the Read more... links.
 # The following tags exist and are replaced for you:

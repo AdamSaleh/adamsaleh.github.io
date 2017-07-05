@@ -26,8 +26,7 @@
 
 <%block name="content">
 <div class="post post-page">
-    <h1 class="post-title">${post.title()|h}</h1>
-    <div class="post-meta">${post.formatted_date(date_format)|h}</div>
+    ${pheader.html_post_header()}
     <div class="post-content">
         ${post.text()}
     </div>
@@ -46,12 +45,4 @@
     ${helper.mathjax_script(post)}
     ${comments.comment_link_script()}
 </div>
-</%block>
-
-<%block name="sourcelink">
-% if show_sourcelink:
-    <li>
-        <a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a>
-    </li>
-% endif
 </%block>
