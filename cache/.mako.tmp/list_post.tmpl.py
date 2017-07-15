@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1499262948.171187
+_modified_time = 1500132092.0052066
 _enable_loop = True
 _template_filename = 'themes/maupassant/templates/list_post.tmpl'
 _template_uri = 'list_post.tmpl'
@@ -32,21 +32,21 @@ def render_body(context,**pageargs):
         __M_locals = __M_dict_builtin(pageargs=pageargs)
         _import_ns = {}
         _mako_get_namespace(context, 'archive_nav')._populate(_import_ns, ['*'])
-        title = _import_ns.get('title', context.get('title', UNDEFINED))
-        archive_nav = _mako_get_namespace(context, 'archive_nav')
         date_format = _import_ns.get('date_format', context.get('date_format', UNDEFINED))
         def content():
             return render_content(context._locals(__M_locals))
-        posts = _import_ns.get('posts', context.get('posts', UNDEFINED))
         messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
+        archive_nav = _mako_get_namespace(context, 'archive_nav')
+        posts = _import_ns.get('posts', context.get('posts', UNDEFINED))
+        title = _import_ns.get('title', context.get('title', UNDEFINED))
         __M_writer = context.writer()
-        __M_writer('\n')
-        __M_writer('\n\n')
+        __M_writer('\r\n')
+        __M_writer('\r\n\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'content'):
             context['self'].content(**pageargs)
         
 
-        __M_writer('\n')
+        __M_writer('\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -57,21 +57,21 @@ def render_content(context,**pageargs):
     try:
         _import_ns = {}
         _mako_get_namespace(context, 'archive_nav')._populate(_import_ns, ['*'])
-        title = _import_ns.get('title', context.get('title', UNDEFINED))
-        archive_nav = _mako_get_namespace(context, 'archive_nav')
         date_format = _import_ns.get('date_format', context.get('date_format', UNDEFINED))
         def content():
             return render_content(context)
-        posts = _import_ns.get('posts', context.get('posts', UNDEFINED))
         messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
+        archive_nav = _mako_get_namespace(context, 'archive_nav')
+        posts = _import_ns.get('posts', context.get('posts', UNDEFINED))
+        title = _import_ns.get('title', context.get('title', UNDEFINED))
         __M_writer = context.writer()
-        __M_writer('\n<div class="post-archive">\n    <header>\n        <h2>')
+        __M_writer('\r\n<div class="post-archive">\r\n    <header>\r\n        <h2>')
         __M_writer(filters.html_escape(str(title)))
-        __M_writer('</h2>\n    </header>\n    ')
+        __M_writer('</h2>\r\n    </header>\r\n    ')
         __M_writer(str(archive_nav.archive_navigation()))
-        __M_writer('\n')
+        __M_writer('\r\n')
         if posts:
-            __M_writer('    <ul class="listing">\n')
+            __M_writer('    <ul class="listing">\r\n')
             for post in posts:
                 __M_writer('        <li>')
                 __M_writer(filters.html_escape(str(post.formatted_date(date_format))))
@@ -79,13 +79,13 @@ def render_content(context,**pageargs):
                 __M_writer(str(post.permalink()))
                 __M_writer('" class="listtitle">')
                 __M_writer(filters.html_escape(str(post.title())))
-                __M_writer('</a></li>\n')
-            __M_writer('    </ul>\n')
+                __M_writer('</a></li>\r\n')
+            __M_writer('    </ul>\r\n')
         else:
             __M_writer('    <p>')
             __M_writer(str(messages("No posts found.")))
-            __M_writer('</p>\n')
-        __M_writer('</div>\n')
+            __M_writer('</p>\r\n')
+        __M_writer('</div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -93,6 +93,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "utf-8", "filename": "themes/maupassant/templates/list_post.tmpl", "uri": "list_post.tmpl", "line_map": {"68": 5, "69": 8, "70": 8, "71": 10, "72": 10, "73": 11, "74": 12, "75": 13, "76": 14, "77": 14, "78": 14, "79": 14, "80": 14, "81": 14, "82": 14, "83": 16, "84": 17, "85": 18, "86": 18, "23": 3, "88": 20, "29": 0, "94": 88, "43": 2, "44": 3, "49": 21, "55": 5, "87": 18}}
+{"uri": "list_post.tmpl", "line_map": {"68": 5, "69": 8, "70": 8, "71": 10, "72": 10, "73": 11, "74": 12, "75": 13, "76": 14, "77": 14, "78": 14, "79": 14, "80": 14, "81": 14, "82": 14, "83": 16, "84": 17, "85": 18, "86": 18, "23": 3, "88": 20, "29": 0, "94": 88, "43": 2, "44": 3, "49": 21, "55": 5, "87": 18}, "source_encoding": "utf-8", "filename": "themes/maupassant/templates/list_post.tmpl"}
 __M_END_METADATA
 """

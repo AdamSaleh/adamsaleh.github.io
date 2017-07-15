@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Adam Saleh's notes</title><link>http://asaleh.net/</link><description>Programing notes of Adam Saleh</description><atom:link type="application/rss+xml" href="http://asaleh.net/rss.xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:adam@"&gt;Adam Saleh&lt;/a&gt; </copyright><lastBuildDate>Wed, 05 Jul 2017 13:51:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Applicative pattern for reactive programming</title><link>http://asaleh.net/posts/applicative-pattern-for-reactive-programming/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Adam Saleh's notes</title><link>http://notes.asaleh.net/</link><description>Programing notes of Adam Saleh</description><atom:link type="application/rss+xml" rel="self" href="http://notes.asaleh.net/rss.xml"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:adam@"&gt;Adam Saleh&lt;/a&gt; </copyright><lastBuildDate>Fri, 14 Jul 2017 20:55:32 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Applicative pattern for reactive programming</title><link>http://notes.asaleh.net/posts/applicative-pattern-for-reactive-programming/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -7,8 +7,8 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Reactive-programming-with-applicatives!"&gt;Reactive programming with applicatives!&lt;a class="anchor-link" href="http://asaleh.net/posts/applicative-pattern-for-reactive-programming/#Reactive-programming-with-applicatives!"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;One interesting thing we could do with applicatives, is to experiment with gui programming. I have been playing around with excelent &lt;a href="http://try.purescript.org/?backend=flare&amp;amp;session=73d51f0a-28f2-a0d1-638e-4793f705c1e8"&gt;flare library&lt;/a&gt; in purescript and it heavily uses applicative style to achieve a style of code that is resembling working with spreadsheets.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://asaleh.net/posts/applicative-pattern-for-reactive-programming/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://asaleh.net/posts/applicative-pattern-for-reactive-programming/</guid><pubDate>Sun, 11 Jun 2017 17:22:05 GMT</pubDate></item><item><title>Monoid for specifying configuration</title><link>http://asaleh.net/posts/monoid-for-specifying-configuration/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+&lt;h2 id="Reactive-programming-with-applicatives!"&gt;Reactive programming with applicatives!&lt;a class="anchor-link" href="http://notes.asaleh.net/posts/applicative-pattern-for-reactive-programming/#Reactive-programming-with-applicatives!"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;One interesting thing we could do with applicatives, is to experiment with gui programming. I have been playing around with excelent &lt;a href="http://try.purescript.org/?backend=flare&amp;amp;session=73d51f0a-28f2-a0d1-638e-4793f705c1e8"&gt;flare library&lt;/a&gt; in purescript and it heavily uses applicative style to achieve a style of code that is resembling working with spreadsheets.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://notes.asaleh.net/posts/applicative-pattern-for-reactive-programming/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://notes.asaleh.net/posts/applicative-pattern-for-reactive-programming/</guid><pubDate>Sun, 11 Jun 2017 17:22:05 GMT</pubDate></item><item><title>Some functional patterns in Python</title><link>http://notes.asaleh.net/posts/some-functional-patterns-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -16,9 +16,24 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Monoid-to-make-a-configuration-dsl"&gt;Monoid to make a configuration dsl&lt;a class="anchor-link" href="http://asaleh.net/posts/monoid-for-specifying-configuration/#Monoid-to-make-a-configuration-dsl"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;If you have read &lt;a href="https://github.com/Gabriel439/slides/blob/master/lambdaconf/category/category.md#new-monoid-transaction"&gt;Gabriels presentation&lt;/a&gt;, you might think, that I would be trying to create monoid for combining event streams. Unfortunately, I don't think I am hard-core enough to do that in Python.&lt;/p&gt;
+&lt;p&gt;Write your post here.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</description><guid>http://notes.asaleh.net/posts/some-functional-patterns-in-python/</guid><pubDate>Thu, 08 Jun 2017 20:26:03 GMT</pubDate></item><item><title>Monoid for specifying configuration</title><link>http://notes.asaleh.net/posts/monoid-for-specifying-configuration/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+    &lt;div class="container" id="notebook-container"&gt;
+
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Monoid-to-make-a-configuration-dsl"&gt;Monoid to make a configuration dsl&lt;a class="anchor-link" href="http://notes.asaleh.net/posts/monoid-for-specifying-configuration/#Monoid-to-make-a-configuration-dsl"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;If you have read &lt;a href="https://github.com/Gabriel439/slides/blob/master/lambdaconf/category/category.md#new-monoid-transaction"&gt;Gabriels presentation&lt;/a&gt;, you might think, that I would be trying to create monoid for combining event streams. Unfortunately, I don't think I am hard-core enough to do that in Python.&lt;/p&gt;
 &lt;p&gt;On the other hand, writing a tiny config library sounds like a bit of harmless fun.
- &lt;/p&gt;&lt;p&gt;&lt;a href="http://asaleh.net/posts/monoid-for-specifying-configuration/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://asaleh.net/posts/monoid-for-specifying-configuration/</guid><pubDate>Sun, 21 May 2017 18:55:30 GMT</pubDate></item><item><title>Applicative pattern in Python</title><link>http://asaleh.net/posts/applicative-pattern-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+ &lt;/p&gt;&lt;p&gt;&lt;a href="http://notes.asaleh.net/posts/monoid-for-specifying-configuration/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://notes.asaleh.net/posts/monoid-for-specifying-configuration/</guid><pubDate>Sun, 21 May 2017 18:55:30 GMT</pubDate></item><item><title>Applicative pattern in Python</title><link>http://notes.asaleh.net/posts/applicative-pattern-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -26,8 +41,8 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Applicatives,-or-functors-for-arbitrary-functions"&gt;Applicatives, or functors for arbitrary functions&lt;a class="anchor-link" href="http://asaleh.net/posts/applicative-pattern-in-python/#Applicatives,-or-functors-for-arbitrary-functions"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mapping only single param functions can be limiting. It would be cool if &lt;code&gt;lift&lt;/code&gt; would could work on function with arbitrary many parameters.&lt;/p&gt;
- &lt;p&gt;&lt;a href="http://asaleh.net/posts/applicative-pattern-in-python/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://asaleh.net/posts/applicative-pattern-in-python/</guid><pubDate>Thu, 11 May 2017 15:27:58 GMT</pubDate></item><item><title>Monoid pattern in Python</title><link>http://asaleh.net/posts/monoid-pattern-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+&lt;h2 id="Applicatives,-or-functors-for-arbitrary-functions"&gt;Applicatives, or functors for arbitrary functions&lt;a class="anchor-link" href="http://notes.asaleh.net/posts/applicative-pattern-in-python/#Applicatives,-or-functors-for-arbitrary-functions"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mapping only single param functions can be limiting. It would be cool if &lt;code&gt;lift&lt;/code&gt; would could work on function with arbitrary many parameters.&lt;/p&gt;
+ &lt;p&gt;&lt;a href="http://notes.asaleh.net/posts/applicative-pattern-in-python/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://notes.asaleh.net/posts/applicative-pattern-in-python/</guid><pubDate>Thu, 11 May 2017 15:27:58 GMT</pubDate></item><item><title>Monoid pattern in Python</title><link>http://notes.asaleh.net/posts/monoid-pattern-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -35,7 +50,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Monoids-are-cool"&gt;Monoids are cool&lt;a class="anchor-link" href="http://asaleh.net/posts/monoid-pattern-in-python/#Monoids-are-cool"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;One useful concept to investigate here is the one of a &lt;em&gt;monoid&lt;/em&gt;. 
+&lt;h2 id="Monoids-are-cool"&gt;Monoids are cool&lt;a class="anchor-link" href="http://notes.asaleh.net/posts/monoid-pattern-in-python/#Monoids-are-cool"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;One useful concept to investigate here is the one of a &lt;em&gt;monoid&lt;/em&gt;. 
 If we think of this as an interface that is implemented by a type &lt;em&gt;T&lt;/em&gt;, it needs two things:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;the &lt;em&gt;empty&lt;/em&gt; element, usually called &lt;em&gt;mempty&lt;/em&gt;&lt;/li&gt;
@@ -48,7 +63,7 @@ If we think of this as an interface that is implemented by a type &lt;em&gt;T&lt
 &lt;li&gt;&lt;em&gt;associativity&lt;/em&gt;: for any a,b,c of type T: append(a,append(b,c)) == append(append(a,b),c)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Now we have this interface, we can do cool things with this :)&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://asaleh.net/posts/monoid-pattern-in-python/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://asaleh.net/posts/monoid-pattern-in-python/</guid><pubDate>Thu, 11 May 2017 15:25:47 GMT</pubDate></item><item><title>Functor pattern in Python</title><link>http://asaleh.net/posts/functor-pattern-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+&lt;p&gt;&lt;a href="http://notes.asaleh.net/posts/monoid-pattern-in-python/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://notes.asaleh.net/posts/monoid-pattern-in-python/</guid><pubDate>Thu, 11 May 2017 15:25:47 GMT</pubDate></item><item><title>Functor pattern in Python</title><link>http://notes.asaleh.net/posts/functor-pattern-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -56,14 +71,14 @@ If we think of this as an interface that is implemented by a type &lt;em&gt;T&lt
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Introducing-Functor"&gt;Introducing Functor&lt;a class="anchor-link" href="http://asaleh.net/posts/functor-pattern-in-python/#Introducing-Functor"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In programing, you often embed some domain specific language in a host language. This might be for working with databases, or working with configuration. And when you have such DSL, you will probably want to use functions from your host-language on values from your dsl. Some database libraries are quite bad in this regard, where you set your queries as literal strings:&lt;/p&gt;
+&lt;h2 id="Introducing-Functor"&gt;Introducing Functor&lt;a class="anchor-link" href="http://notes.asaleh.net/posts/functor-pattern-in-python/#Introducing-Functor"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In programing, you often embed some domain specific language in a host language. This might be for working with databases, or working with configuration. And when you have such DSL, you will probably want to use functions from your host-language on values from your dsl. Some database libraries are quite bad in this regard, where you set your queries as literal strings:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;session.execute("select text,priority from memos where priority&amp;gt;9;")&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;On the other hand, if you use library, such as sql-alchemy, the interoperabilty with the host-language is much more seamless:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;session.query(Memos).filter(Memos.priority &amp;gt; 9)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;When you look at the code, it is apparent that some translation needs to happen that would convert the python expression &lt;code&gt;Memos.priority &amp;gt; 9&lt;/code&gt; to the SQL equivalent.&lt;/p&gt;
- &lt;p&gt;&lt;a href="http://asaleh.net/posts/functor-pattern-in-python/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://asaleh.net/posts/functor-pattern-in-python/</guid><pubDate>Thu, 11 May 2017 15:25:35 GMT</pubDate></item><item><title>Algebraic patterns in Python</title><link>http://asaleh.net/posts/algebraic-patterns-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+ &lt;p&gt;&lt;a href="http://notes.asaleh.net/posts/functor-pattern-in-python/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://notes.asaleh.net/posts/functor-pattern-in-python/</guid><pubDate>Thu, 11 May 2017 15:25:35 GMT</pubDate></item><item><title>Algebraic patterns in Python</title><link>http://notes.asaleh.net/posts/algebraic-patterns-in-python/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -71,6 +86,6 @@ If we think of this as an interface that is implemented by a type &lt;em&gt;T&lt
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="What-do-I-mean-by-algebra?"&gt;What do I mean by algebra?&lt;a class="anchor-link" href="http://asaleh.net/posts/algebraic-patterns-in-python/#What-do-I-mean-by-algebra?"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;When I say algebra, I don't think about implementing i.e. DSL for linear algebra in Python. I think about algebra in general as in "a set of objects and a collection of operations on them".&lt;/p&gt;
+&lt;h2 id="What-do-I-mean-by-algebra?"&gt;What do I mean by algebra?&lt;a class="anchor-link" href="http://notes.asaleh.net/posts/algebraic-patterns-in-python/#What-do-I-mean-by-algebra?"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;When I say algebra, I don't think about implementing i.e. DSL for linear algebra in Python. I think about algebra in general as in "a set of objects and a collection of operations on them".&lt;/p&gt;
 &lt;p&gt;I like algebras, when they are used in programming. Probably the most well-known is Relational Algebra. The object in Relational Algebra is a &lt;em&gt;relation&lt;/em&gt;, with operations like &lt;em&gt;join&lt;/em&gt;, &lt;em&gt;projection&lt;/em&gt; and &lt;em&gt;union&lt;/em&gt;. The nice thing about having something that works like an algebra is, that you always work with the same type of object, reusing the box of tools without breaking the flow.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://asaleh.net/posts/algebraic-patterns-in-python/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://asaleh.net/posts/algebraic-patterns-in-python/</guid><pubDate>Thu, 11 May 2017 15:23:02 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="http://notes.asaleh.net/posts/algebraic-patterns-in-python/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>http://notes.asaleh.net/posts/algebraic-patterns-in-python/</guid><pubDate>Thu, 11 May 2017 15:23:02 GMT</pubDate></item></channel></rss>

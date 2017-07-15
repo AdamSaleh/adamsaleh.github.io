@@ -5,9 +5,9 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1499262948.2916942
+_modified_time = 1500132088.60155
 _enable_loop = True
-_template_filename = '/usr/local/lib/python3.5/site-packages/nikola/data/themes/base/templates/story.tmpl'
+_template_filename = 'c:/users/asaleh/appdata/local/programs/python/python35/lib/site-packages/nikola/data/themes/base/templates/story.tmpl'
 _template_uri = 'story.tmpl'
 _source_encoding = 'utf-8'
 _exports = ['content']
@@ -23,6 +23,9 @@ def _mako_generate_namespaces(context):
     ns = runtime.TemplateNamespace('helper', context._clean_inheritance_tokens(), templateuri='post_helper.tmpl', callables=None,  calling_uri=_template_uri)
     context.namespaces[(__name__, 'helper')] = ns
 
+    ns = runtime.TemplateNamespace('math', context._clean_inheritance_tokens(), templateuri='math_helper.tmpl', callables=None,  calling_uri=_template_uri)
+    context.namespaces[(__name__, 'math')] = ns
+
     ns = runtime.TemplateNamespace('pheader', context._clean_inheritance_tokens(), templateuri='post_header.tmpl', callables=None,  calling_uri=_template_uri)
     context.namespaces[(__name__, 'pheader')] = ns
 
@@ -36,16 +39,17 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        pheader = _mako_get_namespace(context, 'pheader')
-        site_has_comments = context.get('site_has_comments', UNDEFINED)
-        comments = _mako_get_namespace(context, 'comments')
-        helper = _mako_get_namespace(context, 'helper')
-        enable_comments = context.get('enable_comments', UNDEFINED)
         def content():
             return render_content(context._locals(__M_locals))
-        post = context.get('post', UNDEFINED)
+        enable_comments = context.get('enable_comments', UNDEFINED)
+        math = _mako_get_namespace(context, 'math')
+        pheader = _mako_get_namespace(context, 'pheader')
         messages = context.get('messages', UNDEFINED)
+        post = context.get('post', UNDEFINED)
+        comments = _mako_get_namespace(context, 'comments')
+        site_has_comments = context.get('site_has_comments', UNDEFINED)
         __M_writer = context.writer()
+        __M_writer('\n')
         __M_writer('\n')
         __M_writer('\n')
         __M_writer('\n')
@@ -63,15 +67,15 @@ def render_body(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        pheader = _mako_get_namespace(context, 'pheader')
-        site_has_comments = context.get('site_has_comments', UNDEFINED)
-        comments = _mako_get_namespace(context, 'comments')
-        helper = _mako_get_namespace(context, 'helper')
-        enable_comments = context.get('enable_comments', UNDEFINED)
         def content():
             return render_content(context)
-        post = context.get('post', UNDEFINED)
+        enable_comments = context.get('enable_comments', UNDEFINED)
+        math = _mako_get_namespace(context, 'math')
+        pheader = _mako_get_namespace(context, 'pheader')
         messages = context.get('messages', UNDEFINED)
+        post = context.get('post', UNDEFINED)
+        comments = _mako_get_namespace(context, 'comments')
+        site_has_comments = context.get('site_has_comments', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n<article class="post-')
         __M_writer(str(post.meta('type')))
@@ -89,7 +93,7 @@ def render_content(context,**pageargs):
             __M_writer(str(comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path)))
             __M_writer('\n        </section>\n')
         __M_writer('    ')
-        __M_writer(str(helper.mathjax_script(post)))
+        __M_writer(str(math.math_scripts_ifpost(post)))
         __M_writer('\n</article>\n')
         return ''
     finally:
@@ -98,6 +102,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "utf-8", "filename": "/usr/local/lib/python3.5/site-packages/nikola/data/themes/base/templates/story.tmpl", "uri": "story.tmpl", "line_map": {"87": 18, "76": 7, "77": 8, "78": 8, "79": 10, "80": 10, "81": 11, "82": 11, "83": 14, "84": 14, "85": 16, "86": 17, "23": 2, "88": 18, "89": 19, "26": 3, "91": 22, "92": 22, "29": 4, "35": 0, "90": 19, "93": 22, "99": 93, "49": 2, "50": 3, "51": 4, "52": 5, "57": 24, "63": 7}}
+{"uri": "story.tmpl", "line_map": {"96": 23, "67": 8, "23": 2, "80": 8, "81": 9, "82": 9, "83": 11, "84": 11, "85": 12, "86": 12, "87": 15, "88": 15, "89": 17, "26": 5, "91": 19, "92": 19, "29": 3, "94": 20, "95": 23, "32": 4, "97": 23, "90": 18, "38": 0, "103": 97, "93": 20, "52": 2, "53": 3, "54": 4, "55": 5, "56": 6, "61": 25}, "source_encoding": "utf-8", "filename": "c:/users/asaleh/appdata/local/programs/python/python35/lib/site-packages/nikola/data/themes/base/templates/story.tmpl"}
 __M_END_METADATA
 """

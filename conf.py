@@ -21,7 +21,7 @@ BLOG_AUTHOR = "Adam Saleh"  # (translatable)
 BLOG_TITLE = "Adam Saleh's notes"  # (translatable)
 # This is the main URL for your site. It will be used
 # in a prominent link. Don't forget the protocol (http/https)!
-SITE_URL = "http://asaleh.net/"
+SITE_URL = "http://notes.asaleh.net/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://asaleh.net/"
@@ -953,12 +953,12 @@ RSS_COPYRIGHT_FORMATS = CONTENT_FOOTER_FORMATS
 # systems.  The following comment systems are supported by Nikola:
 #   disqus, facebook, googleplus, intensedebate, isso, livefyre, muut
 # You can leave this option blank to disable comments.
-COMMENT_SYSTEM = ""
+COMMENT_SYSTEM = "intensedebate"
 # And you also need to add your COMMENT_SYSTEM_ID which
 # depends on what comment system you use. The default is
 # "nikolademo" which is a test account for Disqus. More information
 # is in the manual.
-COMMENT_SYSTEM_ID = ""
+COMMENT_SYSTEM_ID = "1fb78414f6b8ffc05cf0238b6fa4e491"
 
 # Enable annotations using annotateit.org?
 # If set to False, you can still enable them for individual posts and pages
