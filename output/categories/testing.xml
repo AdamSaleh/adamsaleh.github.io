@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Adam Saleh's notes (Posts about testing)</title><link>http://notes.asaleh.net/</link><description></description><atom:link href="http://notes.asaleh.net/categories/testing.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:adam@"&gt;Adam Saleh&lt;/a&gt; </copyright><lastBuildDate>Tue, 01 Aug 2017 16:07:01 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Debugging Jenkins pipeline</title><link>http://notes.asaleh.net/posts/debugging-jenkins-pipeline/</link><dc:creator>Adam Saleh</dc:creator><description>&lt;div&gt;&lt;h2&gt;Few notes on debugging a Jenkinsfile&lt;/h2&gt;
+&lt;p&gt;For past few months I have been using Jenkinsfiles and Jenkins pipelines more and more.
+They have many advantages to our previous setup, that over-relied on storing as much as possible
+in jenkins-job-builder yaml configs and chaining builds together with post-build triggers.&lt;/p&gt;
+&lt;p&gt;With jenkins-files, we can use Groovy to script everything and that is much nicer than the combination of bash and yaml.
+You can do code-sharing with pipeline-libraries. And all of this really nicely integrates with Github, so we now roll our
+own travis-like ci in our own infrastructure.&lt;/p&gt;
+&lt;p&gt;On the other hand, if there is a problem, especially in longer running pipeline, it can be quite painful to debug.&lt;/p&gt;
+&lt;h3&gt;Stage one: thorough debug logs&lt;/h3&gt;
+&lt;p&gt;If the problem that I encounter is simple enough, it might be solved just by adding a few print statements here and there,
+and re-running the job. This usually works as long as the run is shorter than ~5 minutes. In my case, around the 5 minute mark,
+the "Read logs"-"Change code"-"Rerun" cycle starts being unbearably slow.&lt;/p&gt;
+&lt;h3&gt;Stage two: improvising a break-point&lt;/h3&gt;
+&lt;p&gt;In our infrastructure, we are using docker slaves for most things. On one hand, this means that job usually run in clean environment. Unfortunately, this also means that if something goes wrong, before I start investigating, the container my job was running on is long gone.&lt;/p&gt;
+&lt;p&gt;One trick that usually helped me here, was adding an "input" prompt into my jenkins file in the place I want to investigate.
+This way I was able to pause the execution of the pipeline, ssh into the container and investigate further.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Improvised breakpoint" src="http://notes.asaleh.net/images/improvize_breakpoint.png"&gt;&lt;/p&gt;
+&lt;p&gt;Doing a naive ssh into the container can lead to one more problem. The running job often changes the environment for the commands it would run, which means that the external connection wouldn't have access to the same environmental variables, e.t.c.&lt;/p&gt;
+&lt;p&gt;To mitigate this, I first try to start a tmux session in the jenkins job. Then I attach inside of it.&lt;/p&gt;
+&lt;h3&gt;Stage three: improvising a repl&lt;/h3&gt;
+&lt;p&gt;Sometimes I would need to investigate reason for failure of a pipeline-command itself. In this case I would create a weird little repl-like environment:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;while (true) {
+    def cmd = input message: 'What to run:', parameters: [string(defaultValue: '', description: '', name: 'cmd')]
+    try {
+        print Eval.x(this,cmd)
+    } catch (e) {
+        print e
+    }
+   }
+&lt;/pre&gt;
+
+
+&lt;p&gt;You can then input code to execute in this case, something like:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;x.binding.steps.invokeMethod("sh","node --version")
+&lt;/pre&gt;
+
+
+&lt;p&gt;The nice thing about this is, that now I have limitted access to the rest of the jenkins machinery, while in shell I'd only have access to shell commands. On the other hand, it is really crude. Especially passing in other variables is tricky, and it is even harder to save the results of execution anywhere else. As you can see, I had to use the dsl object methods directly, instead of writing in the same style as in the Jenkinsfile. &lt;/p&gt;
+&lt;h3&gt;To conclude, debugging Jenkinsfiles is ugly&lt;/h3&gt;
+&lt;p&gt;In the future I will probably invest more into the testing side of our pipelines. I know there is a &lt;a href="https://github.com/lesfurets/JenkinsPipelineUnit"&gt;unit-testing library&lt;/a&gt;. I should make sure that thing I actually run in the pipelines is reproducible more easily on my machine as well.&lt;/p&gt;
+&lt;p&gt;On the other hand, I could invest a significant ammount of time to develop a true Jenkinsfile repl. Unfortunately it seems that &lt;em&gt;ain't nobody got time for that&lt;/em&gt;. But I would be quite interested in other solutions to this problem.&lt;/p&gt;&lt;/div&gt;</description><category>pipelines</category><category>testing</category><guid>http://notes.asaleh.net/posts/debugging-jenkins-pipeline/</guid><pubDate>Sun, 30 Jul 2017 12:18:08 GMT</pubDate></item></channel></rss>

@@ -6,12 +6,12 @@
 !_TAG_PROGRAM_VERSION	5.8	//
 BLOG_AUTHOR	../conf.py	/^BLOG_AUTHOR = "Adam Saleh"  # (translatable)$/;"	kind:variable	line:20
 BLOG_DESCRIPTION	../conf.py	/^BLOG_DESCRIPTION = "Programing notes of Adam Saleh"  # (translatable)$/;"	kind:variable	line:29
-BLOG_EMAIL	../conf.py	/^BLOG_EMAIL = "adam@asaleh.net"$/;"	kind:variable	line:28
+BLOG_EMAIL	../conf.py	/^BLOG_EMAIL = "adam@"$/;"	kind:variable	line:28
 BLOG_TITLE	../conf.py	/^BLOG_TITLE = "Adam Saleh's notes"  # (translatable)$/;"	kind:variable	line:21
 CATEGORY_ALLOW_HIERARCHIES	../conf.py	/^CATEGORY_ALLOW_HIERARCHIES = False$/;"	kind:variable	line:442
 CATEGORY_OUTPUT_FLAT_HIERARCHY	../conf.py	/^CATEGORY_OUTPUT_FLAT_HIERARCHY = False$/;"	kind:variable	line:445
-COMMENT_SYSTEM	../conf.py	/^COMMENT_SYSTEM = ""$/;"	kind:variable	line:956
-COMMENT_SYSTEM_ID	../conf.py	/^COMMENT_SYSTEM_ID = ""$/;"	kind:variable	line:961
+COMMENT_SYSTEM	../conf.py	/^COMMENT_SYSTEM = "intensedebate"$/;"	kind:variable	line:956
+COMMENT_SYSTEM_ID	../conf.py	/^COMMENT_SYSTEM_ID = "1fb78414f6b8ffc05cf0238b6fa4e491"$/;"	kind:variable	line:961
 COMPILERS	../conf.py	/^COMPILERS = {$/;"	kind:variable	line:267
 CONTENT_FOOTER_FORMATS	../conf.py	/^CONTENT_FOOTER_FORMATS = {$/;"	kind:variable	line:934
 DEFAULT_LANG	../conf.py	/^DEFAULT_LANG = "en"$/;"	kind:variable	line:89
@@ -38,7 +38,7 @@ PRETTY_URLS	../conf.py	/^PRETTY_URLS = True$/;"	kind:variable	line:1011
 REDIRECTIONS	../conf.py	/^REDIRECTIONS = []$/;"	kind:variable	line:576
 RSS_COPYRIGHT_FORMATS	../conf.py	/^RSS_COPYRIGHT_FORMATS = CONTENT_FOOTER_FORMATS$/;"	kind:variable	line:950
 RSS_COPYRIGHT_PLAIN	../conf.py	/^RSS_COPYRIGHT_PLAIN = 'Contents © {date} {author} {license}'$/;"	kind:variable	line:949
-SITE_URL	../conf.py	/^SITE_URL = "http:\/\/asaleh.net\/"$/;"	kind:variable	line:24
+SITE_URL	../conf.py	/^SITE_URL = "http:\/\/notes.asaleh.net\/"$/;"	kind:variable	line:24
 STRIP_INDEXES	../conf.py	/^STRIP_INDEXES = True$/;"	kind:variable	line:990
 THEME	../conf.py	/^THEME = "maupassant"$/;"	kind:variable	line:146
 THEME_COLOR	../conf.py	/^THEME_COLOR = '#5670d4'$/;"	kind:variable	line:151
@@ -48,12 +48,10 @@ TRANSLATIONS_PATTERN	../conf.py	/^TRANSLATIONS_PATTERN = "{path}.{lang}.{ext}"$/
 UNSLUGIFY_TITLES	../conf.py	/^UNSLUGIFY_TITLES = True$/;"	kind:variable	line:1233
 USE_BASE_TAG	../conf.py	/^USE_BASE_TAG = False$/;"	kind:variable	line:554
 WRITE_TAG_CLOUD	../conf.py	/^WRITE_TAG_CLOUD = True$/;"	kind:variable	line:317
+__init__.py	../plugins/__init__.py	1;"	kind:file	line:1
 conf.py	../conf.py	1;"	kind:file	line:1
 hello	../listings/hello.py	/^def hello(name='world'):$/;"	kind:function	line:6
-hello	../output/listings/hello.py	/^def hello(name='world'):$/;"	kind:function	line:6
 hello.py	../listings/hello.py	1;"	kind:file	line:1
-hello.py	../output/listings/hello.py	1;"	kind:file	line:1
 sys	../listings/hello.py	/^import sys$/;"	kind:namespace	line:3
-sys	../output/listings/hello.py	/^import sys$/;"	kind:namespace	line:3
 time	../conf.py	/^import time$/;"	kind:namespace	line:4
 unicode_literals	../conf.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
