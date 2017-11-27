@@ -1,4 +1,0 @@
-Sitemap: http://notes.asaleh.net/sitemapindex.xml
-
-User-Agent: *
-Host: notes.asaleh.net
