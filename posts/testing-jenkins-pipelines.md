@@ -1,6 +1,13 @@
-Hi all,
-
-Karel Piwko forwarded me this question, because in RHMAP tooling team we are using Jenkinsfiles with pipeline-libraries quite heavily.
+<!-- 
+.. title: Testing Jenkins pipeline
+.. slug: testing-jenkins-pipeline
+.. date: 2017-07-30 14:18:08 UTC+02:00
+.. tags: testing, pipelines, draft
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+-->
 
 Based on our experience, you are correct that to meaningfully test the changes you need to have them at least somewhere where Jenkins will be able to pull them, preferably in a branch in the same repository you configured as the pipeline-library source.
 
