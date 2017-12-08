@@ -1,0 +1,28 @@
+#+BEGIN_COMMENT
+.. title: Experimenting with Purescript's RowToList metaprogramming
+.. slug: experimenting-with-purescripts-rowtolist-metaprogramming
+.. date: 2017-12-07 16:17:13 UTC+01:00
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+
+* Experimenting with Purescript's metaprogramming
+
+After a few stabs at this, I have decided I should write about my experience with Purescript's meta-programming capabilities.
+Purescript is a nice small language, inspired by Haskell, that mostly compiles to Javascript. I know there are some other backends,
+like Erlang, or C++, but I haven't tried those yet. 
+
+It has a really nice book to guide you through the language, given you have at least some limited Haskell experience. 
+My experience with Haskell so far is roughly a half-semester at a university-course (where the other half was concerned with Prolog),
+and a few never-published toy-projects.
+
+It even has several interesting features that you wouldn't find in Haskell (unless you enabled some extensions).
+The feature I have mostly played around is concerned with row-types.
+
+** Purescript's records and their types
+
+Most of Purescripts type system is lifted from Haskell, which means that we have sum-types (such as Boolean = True | False), product-types (such as Tuple a b), 
