@@ -25,4 +25,176 @@ The feature I have mostly played around is concerned with row-types.
 
 ** Purescript's records and their types
 
-Most of Purescripts type system is lifted from Haskell, which means that we have sum-types (such as Boolean = True | False), product-types (such as Tuple a b), 
+Most of Purescripts type system is lifted from Haskell, which means that most types in[[https://github.com/purescript/documentation/blob/master/language/Types.md][ the types documentation]] 
+were mostly familiar. What I found intriguing were records, which were implemented with row-types.
+Records usually corespond to the plain Javascript objects, or (if Purescript compiled to Python) Pythons named-tuples,
+just with staticly enforced types, of course. What really blew my mind was the possibility of polymorphic-record types,
+where I could define a function 
+
+printName :: {name :: String | r} -> String
+
+and this function would work on any record containing the field name, like {name: "Adam", surname: "Saleh"} or {name: "Adam", occupation: "programmer"}.
+
+This got me thinking about the possibilities. Maybe instead of tracking user session with {login:: String, session:: Maybe Session}, I could have functions like:
+
+login :: {login :: String, password :: String | r} -> {login :: String, session :: Session | r}
+logout :: {login :: String, session :: Session | r} -> {login :: String | r}
+
+I am not really sure if this wouldn't bring more problems than it solves, but the possibility sounds awesome.
+
+** Applicative validation?
+
+There was another thing that jumped at me, after going through the purescript by example book and that is the chapter about applicative validation.
+I really liked the approach, with its ability to agregate multiple validation errors, and in the end it let me to this research rabbit-hole looking at various 
+other applicatives, patterns at emulating them in other languages and even trying to make something like them work in Python.
+
+When playing around with applicative-like things in dynamically typed languages, it was fairly easy to replicate the Traversable Applicative combination,
+because with squinted eyes the sequence function looked sort of like Promise.all, that we use at work quite often. Just instead of converting iterable of promises to promise of a list of results,
+it works on any applicative/traversable combination. This got me thinking. In Javascript, it is fairly easy to convert object to an iterable,
+iterating through the fields. Same with python's objects or named tuples.
+
+The question now was, if I could do the same with Purescript's Records, while maintaing the nice type-safety.
+So I started searching, if I would be able to implement this sequenceRecord function.
+
+** Hackin the mapRecord by Justin Woo
+   
+I found Justin Woo's purescript-record-extra fairly quickly and after reading through the code, it looked close enough to what I wanted to achieve.
+Even though I didn't really understand the interplay between typeclasses with functional dependencies and their recursively defined instance implementations,
+the high level template looked simple.  
+ 
+class Keys (xs :: RowList) where
+  keysImpl :: RLProxy xs -> List String
+
+instance nilKeys :: Keys Nil where
+  keysImpl _ = mempty
+
+instance consKeys ::
+  ( IsSymbol name
+  , Keys tail
+  ) => Keys (Cons name ty tail) where
+  keysImpl _ = first : rest
+    where
+      first = reflectSymbol (SProxy :: SProxy name)
+      rest = keysImpl (RLProxy :: RLProxy tail)
+
+Looking at this, the typaclass constraints were looking like
+a sort of a weird prolog. In prolog it would look like this:
+
+keys([]).
+keys([(Name,Ty)|Tail]):- isSymbol(Name), keys(Tail).
+
+this prolog program wouldn't really make sense, and it is missing
+the part concerned with purescripts function implementation,
+but the the realization still helped me when modifying the code.
+
+Before I started modifying the code, I tried out some of the functions. The mapRecord function required, that all of the fields in the record were of the same type,
+but I wanted my sequenceRecord work with different-typed fields (as long as they were of the same Applicative type). The eqRecord seemed to work that way,
+able to compare {a:1, b:"b"} with {a:1, b:"c"}.
+
+*** Defining the typeclass
+
+Now I started to slowly build up my sequenceRecord. First, the type of the helper-typeclass:
+
+class Applicative m <= SequenceRecord rl row m row'
+  | rl -> row row', rl -> m
+  where
+    sequenceRecordImpl :: RLProxy rl -> Record row -> m (Record row')
+    
+This took me a while to get right. I understood that the solver will be concerned with the row-list rl,
+the row for input, the row' for output and that it will need to know the type of the applicative m.
+I didn't really understand the use of functional dependencies and more or less figured those out by trial and (compiler) error.
+
+Then I knew I need to create an instance to solve the empty record case:
+
+instance sequenceRecordNil :: Applicative m => SequenceRecord Nil row m () where
+  sequenceRecordImpl _ _ = pure {}
+
+This wasn't on the first try either. I didn't include the constraint Applicative m =>, assuming that mentioning
+the Applicative in the class definition is enough. Fortunately the folks in purescript slack channel have helped me solve that fairly quickly.
+
+Now to solve the important thing, the instance that will solve the non-empty record case.
+I more or less started with the implementation of mapRecordCons instance and changed it to suit my needs.
+
+mapRecordImpl _ f r =
+    insert nameP val rest
+    where
+      nameP = SProxy :: SProxy name
+      val = f $ get nameP r
+      rest = mapRecordImpl (RLProxy :: RLProxy tail) f r
+
+Because I was fairly familliar with Applicatives, I just changed the insert nameP val rest to work with applicative val: insert nameP <$> val <*> rest.
+Of course there is no longer any f, so the resulting sequenceRecordImpl looked like this:
+
+  sequenceRecordImpl _ a  =
+       insert namep <$> val <*> rest
+    where
+      namep = SProxy :: SProxy name
+      val = get namep a
+      rest = sequenceRecordImpl (RLProxy :: RLProxy tail) f r
+
+*** Figuring out the types      
+
+While I wasn't really confident this was the correct, it was enough to start messing with the type constraints of the instance and trying to get it to compile.
+Looking at:
+
+ instance mapRecordCons ::
+  ( IsSymbol name
+  , RowCons name a trash row
+  , MapRecord tail row a b tailRow'
+  , RowLacks name tailRow'
+  , RowCons name b tailRow' row'
+  ) => MapRecord (Cons name a tail) row a b row' where
+ 
+Changes I needed to do could be summarized like this:
+- MapRecord becomes SequenceRecord
+- instead of tracking a -> b in the typeclass, I am tracking applicative m, so "a b" becomes m
+- I need to add the Applicative m constraint, so that I am able to use <*> in the implementation
+- I needed to treck the type of the applicative and inside the applicative in the rows themselves,
+  so standalone a becomes (m ty) and standalone b becomes ty 
+
+so in the end I ended up with:
+
+instance sequenceRecordCons ::
+  ( IsSymbol name
+  , Applicative m
+  , RowCons name (m ty) trash row
+  , SequenceRecord tail row tailRow' m
+  , RowLacks name tailRow'
+  , RowCons name ty tailRow' row'
+  ) => SequenceRecord (Cons name (m ty) tail) row m row' where
+
+This actually works and is just one step to create the real sequenceRecord function, that figures out the RowList for you,
+but before I show that I need to admit that I am doing this writeup with the famous 20:20 hindsight.
+In reality I didn't actually start with modifications of mapRecord, but with eqRecord. It took me around an hour to realize,
+that mapRecord would be a better template, and even then, it probably contributed to several of the errors I made along the way. 
+
+Second thing I ran into several times was the convention to use ' to signify an output row, i.e. in row' and tailRow'. I managed to
+do several typos along the way, swappint row for row', or forgetting to type the ' at the end of tailRow', which lead to several type errors,
+that really confused me.
+
+*** Tying it all together
+
+Fortunately, the last piece to tie it all together worked more or less the same in all of these,
+you just need to take the type of the *RecordImpl, remove the rowlist, add RowToList as a constraint
+and use RLProxy to use the computed rowlist in the function-call.
+
+sequenceRecord :: forall row row' rl m
+   . RowToList row rl
+  => Applicative m
+  => SequenceRecord rl row row' m
+  => Record row
+  -> m (Record row')
+sequenceRecord a = sequenceRecordImpl (RLProxy :: RLProxy rl) a
+
+** Could we have a real sequence for records?
+
+I kept thinking about this. On one hand, I understand that I will never be able to implement a generic Foldable instance for this type of non-homogenous record,
+because in reality it looks more like a generalization of bifoldable, or somehting like that. On the other hand the sequence function makes intuitive sense,
+so maybe it might be useful to split foldable between foldable and erm, sequence-able? Or maybe I am missing something.
+
+
+** To conclude
+
+I have to say that the overall puzzle to figure this out was really fun! And people on the #purescript on the https://functionalprogramming.slack.com were really awesome,
+and helped me quite a bit, especially @justinwoo, @monoidmusician and @paluh. Justin Woo has even merged this into his https://github.com/justinwoo/purescript-record-extra/ 
+If you would want to play around with the code, you can try at http://try.purescript.org/?gist=19f5b445cdf0b46676287faa6da73313
