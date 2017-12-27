@@ -31,14 +31,18 @@ Records usually corespond to the plain Javascript objects, or (if Purescript com
 just with staticly enforced types, of course. What really blew my mind was the possibility of polymorphic-record types,
 where I could define a function 
 
+#+BEGIN_SRC purescript
 printName :: {name :: String | r} -> String
+#+END_SRC
 
 and this function would work on any record containing the field name, like {name: "Adam", surname: "Saleh"} or {name: "Adam", occupation: "programmer"}.
 
 This got me thinking about the possibilities. Maybe instead of tracking user session with {login:: String, session:: Maybe Session}, I could have functions like:
 
+#+BEGIN_SRC purescript
 login :: {login :: String, password :: String | r} -> {login :: String, session :: Session | r}
 logout :: {login :: String, session :: Session | r} -> {login :: String | r}
+#+END_SRC
 
 I am not really sure if this wouldn't bring more problems than it solves, but the possibility sounds awesome.
 
@@ -62,6 +66,7 @@ I found Justin Woo's purescript-record-extra fairly quickly and after reading th
 Even though I didn't really understand the interplay between typeclasses with functional dependencies and their recursively defined instance implementations,
 the high level template looked simple.  
  
+#+BEGIN_SRC purescript
 class Keys (xs :: RowList) where
   keysImpl :: RLProxy xs -> List String
 
@@ -76,12 +81,15 @@ instance consKeys ::
     where
       first = reflectSymbol (SProxy :: SProxy name)
       rest = keysImpl (RLProxy :: RLProxy tail)
+#+END_SRC
 
 Looking at this, the typaclass constraints were looking like
 a sort of a weird prolog. In prolog it would look like this:
 
+#+BEGIN_SRC prolog
 keys([]).
 keys([(Name,Ty)|Tail]):- isSymbol(Name), keys(Tail).
+#+END_SRC
 
 this prolog program wouldn't really make sense, and it is missing
 the part concerned with purescripts function implementation,
@@ -95,10 +103,12 @@ able to compare {a:1, b:"b"} with {a:1, b:"c"}.
 
 Now I started to slowly build up my sequenceRecord. First, the type of the helper-typeclass:
 
+#+BEGIN_SRC purescript
 class Applicative m <= SequenceRecord rl row m row'
   | rl -> row row', rl -> m
   where
     sequenceRecordImpl :: RLProxy rl -> Record row -> m (Record row')
+#+END_SRC
     
 This took me a while to get right. I understood that the solver will be concerned with the row-list rl,
 the row for input, the row' for output and that it will need to know the type of the applicative m.
@@ -106,8 +116,10 @@ I didn't really understand the use of functional dependencies and more or less f
 
 Then I knew I need to create an instance to solve the empty record case:
 
+#+BEGIN_SRC purescript
 instance sequenceRecordNil :: Applicative m => SequenceRecord Nil row m () where
   sequenceRecordImpl _ _ = pure {}
+#+END_SRC
 
 This wasn't on the first try either. I didn't include the constraint Applicative m =>, assuming that mentioning
 the Applicative in the class definition is enough. Fortunately the folks in purescript slack channel have helped me solve that fairly quickly.
@@ -115,28 +127,33 @@ the Applicative in the class definition is enough. Fortunately the folks in pure
 Now to solve the important thing, the instance that will solve the non-empty record case.
 I more or less started with the implementation of mapRecordCons instance and changed it to suit my needs.
 
+#+BEGIN_SRC purescript
 mapRecordImpl _ f r =
     insert nameP val rest
     where
       nameP = SProxy :: SProxy name
       val = f $ get nameP r
       rest = mapRecordImpl (RLProxy :: RLProxy tail) f r
+#+END_SRC
 
 Because I was fairly familliar with Applicatives, I just changed the insert nameP val rest to work with applicative val: insert nameP <$> val <*> rest.
 Of course there is no longer any f, so the resulting sequenceRecordImpl looked like this:
 
+#+BEGIN_SRC purescript
   sequenceRecordImpl _ a  =
        insert namep <$> val <*> rest
     where
       namep = SProxy :: SProxy name
       val = get namep a
       rest = sequenceRecordImpl (RLProxy :: RLProxy tail) f r
+#+END_SRC
 
 *** Figuring out the types      
 
 While I wasn't really confident this was the correct, it was enough to start messing with the type constraints of the instance and trying to get it to compile.
 Looking at:
 
+#+BEGIN_SRC purescript
  instance mapRecordCons ::
   ( IsSymbol name
   , RowCons name a trash row
@@ -144,6 +161,7 @@ Looking at:
   , RowLacks name tailRow'
   , RowCons name b tailRow' row'
   ) => MapRecord (Cons name a tail) row a b row' where
+#+END_SRC
  
 Changes I needed to do could be summarized like this:
 - MapRecord becomes SequenceRecord
@@ -154,6 +172,7 @@ Changes I needed to do could be summarized like this:
 
 so in the end I ended up with:
 
+#+BEGIN_SRC purescript
 instance sequenceRecordCons ::
   ( IsSymbol name
   , Applicative m
@@ -162,6 +181,7 @@ instance sequenceRecordCons ::
   , RowLacks name tailRow'
   , RowCons name ty tailRow' row'
   ) => SequenceRecord (Cons name (m ty) tail) row m row' where
+#+END_SRC
 
 This actually works and is just one step to create the real sequenceRecord function, that figures out the RowList for you,
 but before I show that I need to admit that I am doing this writeup with the famous 20:20 hindsight.
@@ -178,6 +198,7 @@ Fortunately, the last piece to tie it all together worked more or less the same 
 you just need to take the type of the *RecordImpl, remove the rowlist, add RowToList as a constraint
 and use RLProxy to use the computed rowlist in the function-call.
 
+#+BEGIN_SRC purescript
 sequenceRecord :: forall row row' rl m
    . RowToList row rl
   => Applicative m
@@ -185,6 +206,7 @@ sequenceRecord :: forall row row' rl m
   => Record row
   -> m (Record row')
 sequenceRecord a = sequenceRecordImpl (RLProxy :: RLProxy rl) a
+#+END_SRC
 
 ** Could we have a real sequence for records?
 
