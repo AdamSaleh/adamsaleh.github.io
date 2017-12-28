@@ -23,6 +23,8 @@ and a few never-published toy-projects.
 It even has several interesting features that you wouldn't find in Haskell (unless you enabled some extensions).
 The feature I have mostly played around is concerned with row-types.
 
+{{{TEASER_END}}}
+
 ** Purescript's records and their types
 
 Most of Purescripts type system is lifted from Haskell, which means that most types in[[https://github.com/purescript/documentation/blob/master/language/Types.md][ the types documentation]] 
