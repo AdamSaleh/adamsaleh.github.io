@@ -28,3 +28,32 @@ but for the purposes of this, lets summarize the two-player ruleset:
   * this player then takes the vacated tile and puts in his kingdom - either besides the castle, or besides a matching tile (dominoes style). All the tiles of your kingdom should fit in 5x5 region.
   * then player with king on the second tile does the same, e.t.c untill there are only 4 newly claimed tiles
   * then next round starts
+
+After I finished my first game, I thought to myself, "These rules are simple enough to play with our little Elen".
+So before you try this at home. beware, that we have quite patient and calm kid, and even then I can manage a 20 minute session at best.
+The session might end abruptly for any of following reasons:
+* Elen no longer feels like playing
+* Two kings now have to live inside of the little castle tile, and can't be bothered to go do their job of claiming the new tiles.
+* The tile placement doesn't go according to her plan, for example she now has to have two distinct lakes in her kingdom instead of a single large one and she concedes
+* The tile with a image of a dragon siluethe or lochness monster appears and suddenly it is much more important to figure out if the two kings, living in hte castle, will be safe from the monster, than playing the game by the rules. Alternatively, dragon eats the monster.
+
+We do actually finish more games than not, and even those times when we don't finish properly, it usually morph into something similarily interesting,
+like free-form kingdom building, or funny discussions about kingdom's food chain, that probably will include both dragon, two types of water-monster and a man-sized spider.
+As long as I keep in mind, that the reason for playing is having fun and killing 20 minutes of time, it is always a success.
+
+So, how do we actually play? Mostly by me prompting her to do stuff she should on her turn:
+* Choose the new tile you like with your king
+* Now place the old tile somewhere in your kingdom
+
+With these two prompts we are able to play fairly well. I explained the importance of crowns on tiles to her,
+and that creating large continuous areas is good, and even though she doesn't really play with much foresight,
+I would say that her tile-placement is anything but random :-) She even beat me on one ocasion. Well, the final counting of points is not something,
+that really interests her, but I found it really amusing, when she actually had more points than I did.
+
+I relaxed the rule about keeping the kingdom in 5x5 grid, because I figured that it would take too long to explain,
+and I didn't want to just forbid her placing a tile, if she wouldn't understand why she shouldn't do that.
+I understand the reason for the 5x5 rule, but from a perspektive of a 3-year old, it sounds arbitrary.
+
+To conclude, this is how we do it, and it saved us few afternoons, expecially when Elen was sick and we couldn't go play outside.
+If you will try this as well, just keep in mind, that the goal here isn't to win, and that sometimes it is more important to have the dragon in your kingdom than the most points
+
