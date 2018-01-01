@@ -33,6 +33,10 @@ That s simple enough and there is still some tension with 2 or 3 players.
 How does it look like when we are playing?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+This is probably the best suited game/mod that we play together. Trying to hit the bell first is fun, Elen celebrates even when somebody else takes the cards,
+and if time my losses correctly, we can play for over 30 minutes. We usually play just in two (because one of us, parents needs to do some things around the household),
+but it still is fun when the three of us are together at the table (well, on the carpet, really). Only drawback with playing with 3 is, that with or simplified rules,
+the bell gets triggered a bit too often. With more than 3 players we will need to wait for Elen to learn to count to 5 properly.
 
 To conclude,
 ~~~~~~~~~~~
