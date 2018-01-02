@@ -111,7 +111,7 @@ class Applicative m <= SequenceRecord rl row m row'
 #+END_SRC
     
 This took me a while to get right. I understood that the solver will be concerned with the row-list ~rl~,
-the ~row~ for input, the ~row'~ for output and that it will need to know the type of the ~applicative~ ~m~.
+the row for input, the row' for output and that it will need to know the type of the ~Applicative~ ~m~.
 I didn't really understand the use of functional dependencies ([[https://github.com/paf31/24-days-of-purescript-2016/blob/master/10.markdownt][this post somewhat helped]]) and more or less figured those out by trial and (compiler) error.
 
 Then I knew I need to create an instance to solve the empty record case:
@@ -187,11 +187,11 @@ This actually works and is just one step to create the real ~sequenceRecord~ fun
 but before I show that I need to admit that I am doing this write-up with the famous 20:20 hindsight.
 
 In reality I didn't actually start with modifications of ~mapRecord~, but with ~eqRecord~. It took me around an hour to realize,
-that ~mapRecord~ would be a better template. I realized out that adding the ~Applicative~ constraint to ~mapRecord~ is simpler than figuring out how to build-up the output ~row'~ when starting with eqRecord.
+that ~mapRecord~ would be a better template. I realized out that adding the ~Applicative~ constraint to ~mapRecord~ is simpler than figuring out how to build-up the output row when starting with eqRecord.
 Even then, it probably contributed to several of the errors I made along the way. 
 
-Second thing I ran into several times was the convention to use ' to signify an output row, i.e. in ~row'~ and ~tailRow'~ I managed to
-do several typos along the way, swapping ~row~ for ~row'~, or forgetting to type the ' at the end of ~tailRow'~, which lead to several type errors,
+Second thing I ran into several times was the convention to use ' to signify an output row, i.e. in row' and tailRow', I managed to
+do several typos along the way, swapping row for row', or forgetting to type the ' at the end of tailRow', which lead to several type errors,
 that really confused me.
 
 *** Tying it all together
