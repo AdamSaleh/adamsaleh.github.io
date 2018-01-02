@@ -190,7 +190,7 @@ In reality I didn't actually start with modifications of ~mapRecord~, but with ~
 that ~mapRecord~ would be a better template. I realized out that adding the ~Applicative~ constraint to ~mapRecord~ is simpler than figuring out how to build-up the output ~row'~ when starting with eqRecord.
 Even then, it probably contributed to several of the errors I made along the way. 
 
-Second thing I ran into several times was the convention to use ' to signify an output row, i.e. in ~row'~ and ~tailRow'~. I managed to
+Second thing I ran into several times was the convention to use ' to signify an output row, i.e. in ~row'~ and ~tailRow'~ I managed to
 do several typos along the way, swapping ~row~ for ~row'~, or forgetting to type the ' at the end of ~tailRow'~, which lead to several type errors,
 that really confused me.
 
