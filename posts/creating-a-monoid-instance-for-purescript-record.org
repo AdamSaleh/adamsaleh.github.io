@@ -1,0 +1,75 @@
+#+BEGIN_COMMENT
+.. title: Creating a Monoid instance for Purescript Record
+.. slug: creating-a-monoid-instance-for-purescript-record
+.. date: 2018-01-03 09:00:20 UTC+01:00
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+* Ok
+
+** A rationale behind this attempt
+
+Whyy would I want to attempt to create a monoid-like thing for records? Well, the reasoning is three-fold.
+First, when playing around with Purescript, I often have these large record definitions and then I have to initialize them. I would much rather just say "This record has all fields empty, figure it out."
+Second, these large records are often the heart of some state, that I update all the time, and I would much rather just do
+
+#+BEGIN_SRC purescript
+ updateFunction state update = appendRecord state update
+#+END_SRC
+
+than
+
+#+BEGIN_SRC purescript
+updateFunction state update = state {a = state.a <> update.a ...}
+#+END_SRC
+
+Third, because Record is kind-of like a row-polymorphic Tuple, and Tuple has a Monoid instance, it should mean that creating a something simmilar for Records should be quite an easy puzzle to solve :-)
+
+** First the empty instance
+
+Because I wouldn't be implementing a proper instance (still not entirely sure that is possible just yet in Purescript, would I need overlaping typeclass instance support to do that?), and just the two hepler functions,
+that more or less try to convey the implementation of the instance in spirit, I start with the memptyRecord implementation.
+
+It turns out it is easier than the appendRecord one.
+
+For the class itself, I just need the RowList and output row.
+
+#+BEGIN_SRC purescript
+class MemptyRecord rl row | rl -> row
+  where
+    memptyRecordImpl :: RLProxy rl -> Record row
+#+END_SRC
+
+And Nil case will be just an empty record.
+
+#+BEGIN_SRC purescript
+instance memptyRecordNil :: MemptyRecord Nil () where
+  memptyRecordImpl _ = {}
+#+END_SRC
+
+#+BEGIN_SRC purescript
+instance memptyRecordCons ::
+  ( IsSymbol name
+  , Monoid t
+  , MemptyRecord tail tailRow
+  , RowLacks name tailRow
+  , RowCons name t tailRow row
+  ) => MemptyRecord (Cons name t tail) row where
+  memptyRecordImpl _ =
+     insert namep mempty rest
+   where
+     namep = SProxy :: SProxy name
+     tailp = RLProxy :: RLProxy tail
+     rest = memptyRecordImpl tailp
+#+END_SRC
+
+#+BEGIN_SRC purescript
+memptyRecord :: forall rl row . RowToList row rl
+   => MemptyRecord rl row
+   => Record row
+memptyRecord = memptyRecordImpl (RLProxy :: RLProxy rl)
+#+END_SRC
