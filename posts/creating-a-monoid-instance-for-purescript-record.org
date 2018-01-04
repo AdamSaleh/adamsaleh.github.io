@@ -51,6 +51,8 @@ instance memptyRecordNil :: MemptyRecord Nil () where
   memptyRecordImpl _ = {}
 #+END_SRC
 
+In the Cons instance, I just iterate over the ~RowList~, on constraint that every there is a ~Monoid~ in every row and insert a ~mempty~ for that row.
+
 #+BEGIN_SRC purescript
 instance memptyRecordCons ::
   ( IsSymbol name
@@ -67,9 +69,20 @@ instance memptyRecordCons ::
      rest = memptyRecordImpl tailp
 #+END_SRC
 
+To tie it all together, I wrap the memptyRecordImpl in memptyRecord function, that makes the compiler to firure out the row-list for me.
+
 #+BEGIN_SRC purescript
 memptyRecord :: forall rl row . RowToList row rl
    => MemptyRecord rl row
    => Record row
 memptyRecord = memptyRecordImpl (RLProxy :: RLProxy rl)
 #+END_SRC
+
+In the end, this was fairly simple and I managed to solve the first problem, because now 
+
+#+BEGIN_SRC purescript
+     {a : "", b : 0}  == memptyRecord :: {a :: String, b :: Array Int}
+#+END_SRC
+
+This of-course doesn't really work on nested records, where I probably need to wrap then in ~newtype~, but even then, the implementation would have been simpler.
+ 
