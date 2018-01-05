@@ -29,7 +29,7 @@ updateFunction state update = state {a = state.a <> update.a ...}
 
 Third, because Record is kind-of like a row-polymorphic Tuple, and Tuple has a Monoid instance, it should mean that creating a something simmilar for Records should be quite an easy puzzle to solve :-)
 
-** First the empty instance
+** First the memptyRecord
 
 Because I wouldn't be implementing a proper instance (still not entirely sure that is possible just yet in Purescript, would I need overlaping typeclass instance support to do that?), and just the two hepler functions,
 that more or less try to convey the implementation of the instance in spirit, I start with the memptyRecord implementation.
@@ -84,5 +84,39 @@ In the end, this was fairly simple and I managed to solve the first problem, bec
      {a : "", b : 0}  == memptyRecord :: {a :: String, b :: Array Int}
 #+END_SRC
 
-This of-course doesn't really work on nested records, where I probably need to wrap then in ~newtype~, but even then, the implementation would have been simpler.
+This of-course doesn't really work on nested records, but I think it is still an improvement.
+
+** Now, the appendRecord
+
+For the sake of simplicity I will just dump the entirety of my first attempt at this.
+It actually worked and ~appendRecord {a: "1", b: [2], c: "3"} {a: "a", b: [4], c: "c"} == {a: "1a", b: [2,4], c: "3c"}~,
+but there wasn't nothing new in there.
+
+#+BEGIN_SRC purescript
++class SemigroupRecord rl row row'
+  | rl -> row row'
+  where
+    appendRecordImpl :: RLProxy rl -> Record row -> Record row -> Record row'
+
+instance appendRecordCons ::
+  ( IsSymbol name
+  , Semigroup ty
+  , RowCons name ty trash row
+  , SemigroupRecord tail row tailRow'
+  , RowLacks name tailRow'
+  , RowCons name ty tailRow' row'
+  ) => SemigroupRecord (Cons name ty tail) row row' where
+  appendRecordImpl _ a b =
+      insert namep (valA <> valB) rest
+    where
+      namep = SProxy :: SProxy name
+      valA = get namep a
+      valB = get namep b
+      rest = appendRecordImpl (RLProxy :: RLProxy tail) a b
  
+ instance appendRecordNil :: SemigroupRecord Nil row () where
+   appendRecordImpl _ _ _ = {}
+#+END_SRC
+
+
+Thing is, I didn't like it.
