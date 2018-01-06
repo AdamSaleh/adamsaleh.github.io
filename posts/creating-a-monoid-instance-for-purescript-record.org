@@ -119,4 +119,44 @@ instance appendRecordCons ::
 #+END_SRC
 
 
-Thing is, I didn't like it.
+This implementation required, that when I use ~appendRecord~, both records have the same keys, and that didn't really fit the record-updating semantics I had in mind.
+If I had a large record to update, I don't really want to specify all of the keys, I just want to specify the keys that I want to update.
+
+With this in mind, I went to #purescript on functionalprogramming.slack.com and started asking, if anybody knows how to implement outer join of two records.
+If I knew, that you could somehow merge ~{a: 1, b:"b"}~ with ~{b:"b", c:"c"}~ to get ~{a:1, b:"b", c:"c" }~, changing it do ~{a:1, b:"bb", c:"c" }~ should be simple, right? 
+
+Unfortunately, it turns out, doing outer-join with RowLists seems to be hard, mostly ending the conversation about my outer-join ideas with the question "So, why do you actually want to do that?"
+After I described the usecase for updating records, @i-am-tom suggested to change the ~appendRecord~ function to allow the second record be a subset of first one. This means that the ~appendRecordImpl~
+type becomes ~RLProxy rl -> Record big -> Record small -> Record big~. This makes everything simpler, and @paluh even sent me an implementation in try-purescript TODO.
+
+First interesting thing I have noticed, that with the new class definition, I don't actually need any functional dependencies.
+ 
+#+BEGIN_SRC purescript
+class AppendSubrecordImpl rl bigger smaller where
+  appendSubrecordImpl :: RLProxy rl -> Record bigger -> Record smaller -> Record bigger
+#+END_SRC
+
+Because the iteration happens over the smaller record, in nil case I just return the bigger record.
+
+#+BEGIN_SRC purescript
+instance appendSubrecordNil :: AppendSubrecordImpl Nil bigger smaller where
+  appendSubrecordImpl _ b s = b
+#+END_SRC
+
+And because I know that the result will be the ~Row bigger~, I don't actually need the machinery to build up the output row.
+
+#+BEGIN_SRC purescript
+instance appendSubrecordCons ::
+  ( IsSymbol name
+  , RowCons name t trash smaller
+  , RowCons name t trash' bigger
+  , Semigroup t
+  , AppendSubrecordImpl tail bigger smaller
+  ) => AppendSubrecordImpl (Cons name t tail) bigger smaller where
+    appendSubrecordImpl _ bigger smaller = modify key modifier rest
+      where
+        key = SProxy :: SProxy name
+        modifier v = v <> get key smaller
+        rest = appendSubrecordImpl (RLProxy ∷ RLProxy tail) bigger smaller
+#+END_SRC
+
