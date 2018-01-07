@@ -160,3 +160,23 @@ instance appendSubrecordCons ::
         rest = appendSubrecordImpl (RLProxy ∷ RLProxy tail) bigger smaller
 #+END_SRC
 
+** Could this still be a monoid?
+
+Now that I have what I wanted, I started thinking if this still can be considered a monoid. If we would have one well defined type, that would go through all of our functions, a single closed row-type,
+I don't think there would be a problem with any of th monoid laws and fairly easily we could do:
+
+#+BEGIN_SRC purescript
+newtype User = User {name: Maybe String, surname: Maybe String}
+
+instance semigroupUser :: Semigroup User where
+  append (User a) (User b) = User (appendSubrecord a b)
+
+instance monoidUser :: Monoid User where
+  mempty = User {name : Nothing, surname: Nothing}
+#+END_SRC
+
+But I am not really sure what does the fact, that we relaxed the second row to be a sub-set of the first actually mean. It seems that there might be some foot-guns hidden in there.
+For example, because I only iterate through the smaller row RowList, the first row could contain keys that aren't Semigroups. Is that a bug, or a feature? I am not sure yet, 
+but I definitely can't claim that ~{a:String, b:MyNotASemigroup}~ is a ~Semigroup~, even though I could ~appendSubrecord {a:"Adam", b:Test} {a: " Saleh"}~. The compiler would still catch,
+if I try to append the wrong key. On the whole, this starts to resemble more of a relational algebra, than the group-hierarchy. I wonder how would rest of the instances from Tuple look like,
+if I ported them over to Record.
