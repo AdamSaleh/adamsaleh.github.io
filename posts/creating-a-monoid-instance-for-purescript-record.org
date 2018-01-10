@@ -79,7 +79,7 @@ memptyRecord = memptyRecordImpl (RLProxy :: RLProxy rl)
 In the end, this was fairly simple and I managed to solve the first problem, because now 
 
 #+BEGIN_SRC purescript
-     {a : "", b : 0}  == memptyRecord :: {a :: String, b :: Array Int}
+     {a : "", b : []}  == memptyRecord :: {a :: String, b :: Array Int}
 #+END_SRC
 
 This of-course doesn't really work on nested records, but I think it is still an improvement.
@@ -87,8 +87,13 @@ This of-course doesn't really work on nested records, but I think it is still an
 ** Now, the appendRecord
 
 For the sake of simplicity I will just dump the entirety of my first attempt at this.
-It actually worked and ~appendRecord {a: "1", b: [2], c: "3"} {a: "a", b: [4], c: "c"} == {a: "1a", b: [2,4], c: "3c"}~,
-but there wasn't nothing new in there.
+It actually worked and 
+
+#+BEGIN_SRC purescript
+~appendRecord {a: "1", b: [2], c: "3"} {a: "a", b: [4], c: "c"} == {a: "1a", b: [2,4], c: "3c"}~
+#+END_SRC
+
+It looked like this:
 
 #+BEGIN_SRC purescript
 +class SemigroupRecord rl row row'
@@ -125,7 +130,13 @@ If I knew, that you could somehow merge ~{a: 1, b:"b"}~ with ~{b:"b", c:"c"}~ to
 
 Unfortunately, it turns out, doing outer-join with RowLists seems to be hard, mostly ending the conversation about my outer-join ideas with the question "So, why do you actually want to do that?"
 After I described the use-case for updating records, @monoidmusician suggested to change the ~appendRecord~ function to allow the second record be a subset of first one. This means that the ~appendRecordImpl~
-type becomes ~RLProxy rl -> Record big -> Record small -> Record big~. This makes everything simpler, and @paluh even sent me an implementation in gist https://gist.github.com/paluh/c3767862dea5ee9d2cca55eb8602c152.
+type becomes 
+
+#+BEGIN_SRC purescript
+RLProxy rl -> Record big -> Record small -> Record big
+#+END_SRC
+
+This makes everything simpler, and @paluh even sent me an implementation in [[https://gist.github.com/paluh/c3767862dea5ee9d2cca55eb8602c152][gist]].
 
 First interesting thing I have noticed, that with the new class definition, I don't actually need any functional dependencies.
  
@@ -157,6 +168,8 @@ instance appendSubrecordCons ::
         modifier v = v <> get key smaller
         rest = appendSubrecordImpl (RLProxy ∷ RLProxy tail) bigger smaller
 #+END_SRC
+
+One day, I maybe will be bugging @jusrin00 to [[https://github.com/justinwoo/purescript-record-extra/pull/5][merge this PR as well]] :-)
 
 ** Could this still be a monoid?
 
