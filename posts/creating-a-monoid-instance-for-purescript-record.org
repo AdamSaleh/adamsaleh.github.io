@@ -9,11 +9,9 @@
 .. type: text
 #+END_COMMENT
 
-* Ok
-
 ** A rationale behind this attempt
 
-Whyy would I want to attempt to create a monoid-like thing for records? Well, the reasoning is three-fold.
+Why would I want to attempt to create a monoid-like thing for records? Well, the reasoning is three-fold.
 First, when playing around with Purescript, I often have these large record definitions and then I have to initialize them. I would much rather just say "This record has all fields empty, figure it out."
 Second, these large records are often the heart of some state, that I update all the time, and I would much rather just do
 
@@ -27,11 +25,11 @@ than
 updateFunction state update = state {a = state.a <> update.a ...}
 #+END_SRC
 
-Third, because Record is kind-of like a row-polymorphic Tuple, and Tuple has a Monoid instance, it should mean that creating a something simmilar for Records should be quite an easy puzzle to solve :-)
+Third, because Record is kind-of like a row-polymorphic Tuple, and Tuple has a Monoid instance, it should mean that creating a something similar for Records should be quite an easy puzzle to solve :-)
 
 ** First the memptyRecord
 
-Because I wouldn't be implementing a proper instance (still not entirely sure that is possible just yet in Purescript, would I need overlaping typeclass instance support to do that?), and just the two hepler functions,
+Because I wouldn't be implementing a proper instance (still not entirely sure that is possible just yet in Purescript, would I need overlapping typeclass instance support to do that?), and just the two hepler functions,
 that more or less try to convey the implementation of the instance in spirit, I start with the memptyRecord implementation.
 
 It turns out it is easier than the appendRecord one.
@@ -69,7 +67,7 @@ instance memptyRecordCons ::
      rest = memptyRecordImpl tailp
 #+END_SRC
 
-To tie it all together, I wrap the memptyRecordImpl in memptyRecord function, that makes the compiler to firure out the row-list for me.
+To tie it all together, I wrap the memptyRecordImpl in memptyRecord function, that makes the compiler to figure out the row-list for me.
 
 #+BEGIN_SRC purescript
 memptyRecord :: forall rl row . RowToList row rl
@@ -126,8 +124,8 @@ With this in mind, I went to #purescript on functionalprogramming.slack.com and 
 If I knew, that you could somehow merge ~{a: 1, b:"b"}~ with ~{b:"b", c:"c"}~ to get ~{a:1, b:"b", c:"c" }~, changing it do ~{a:1, b:"bb", c:"c" }~ should be simple, right? 
 
 Unfortunately, it turns out, doing outer-join with RowLists seems to be hard, mostly ending the conversation about my outer-join ideas with the question "So, why do you actually want to do that?"
-After I described the usecase for updating records, @i-am-tom suggested to change the ~appendRecord~ function to allow the second record be a subset of first one. This means that the ~appendRecordImpl~
-type becomes ~RLProxy rl -> Record big -> Record small -> Record big~. This makes everything simpler, and @paluh even sent me an implementation in try-purescript TODO.
+After I described the use-case for updating records, @monoidmusician suggested to change the ~appendRecord~ function to allow the second record be a subset of first one. This means that the ~appendRecordImpl~
+type becomes ~RLProxy rl -> Record big -> Record small -> Record big~. This makes everything simpler, and @paluh even sent me an implementation in gist https://gist.github.com/paluh/c3767862dea5ee9d2cca55eb8602c152.
 
 First interesting thing I have noticed, that with the new class definition, I don't actually need any functional dependencies.
  
@@ -163,7 +161,7 @@ instance appendSubrecordCons ::
 ** Could this still be a monoid?
 
 Now that I have what I wanted, I started thinking if this still can be considered a monoid. If we would have one well defined type, that would go through all of our functions, a single closed row-type,
-I don't think there would be a problem with any of th monoid laws and fairly easily we could do:
+I don't think there would be a problem with any of the monoid laws and fairly easily we could do:
 
 #+BEGIN_SRC purescript
 newtype User = User {name: Maybe String, surname: Maybe String}
@@ -179,4 +177,4 @@ But I am not really sure what does the fact, that we relaxed the second row to b
 For example, because I only iterate through the smaller row RowList, the first row could contain keys that aren't Semigroups. Is that a bug, or a feature? I am not sure yet, 
 but I definitely can't claim that ~{a:String, b:MyNotASemigroup}~ is a ~Semigroup~, even though I could ~appendSubrecord {a:"Adam", b:Test} {a: " Saleh"}~. The compiler would still catch,
 if I try to append the wrong key. On the whole, this starts to resemble more of a relational algebra, than the group-hierarchy. I wonder how would rest of the instances from Tuple look like,
-if I ported them over to Record.
+if I ported them over to Record. Maybe I will try to take a stab at Row-polymorphic curry and uncurry, that might be fun.
