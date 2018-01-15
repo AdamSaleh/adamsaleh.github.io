@@ -15,6 +15,8 @@ it has won Spiel des Yahres for 2017, so it is pretty well known by now. It is a
 might take me and my wife around half an hour to play a round and we can manage the rules
 even when exhausted after the day is over and before we go to bed.
 
+.. image:: /images/elen_kingdomino2.png
+
 I think a dedicated review [TODO link] might do a better job of explaining the rules than me,
 but for the purposes of this, lets summarize the two-player rule-set:
 
@@ -42,6 +44,8 @@ The session might end abruptly for any of following reasons:
 * Two kings now have to live inside of the little castle tile, and can't be bothered to go do their job of claiming the new tiles.
 * The tile placement doesn't go according to her plan, for example she now has to have two distinct lakes in her kingdom instead of a single large one and she concedes
 * The tile with a image of a dragon silhouette or lochness monster appears and suddenly it is much more important to figure out if the two kings, living in hte castle, will be safe from the monster, than playing the game by the rules. Alternatively, dragon eats the monster.
+
+.. image:: /images/elen_kingdomino.png
 
 We do actually finish more games than not, and even those times when we don't finish properly, it usually morph into something similarly interesting,
 like free-form kingdom building, or funny discussions about kingdom's food chain, that probably will include both dragon, two types of water-monster and a man-sized spider.
