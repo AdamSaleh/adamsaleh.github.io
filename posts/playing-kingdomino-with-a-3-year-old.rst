@@ -1,6 +1,6 @@
 .. title: Playing Kingdomino with a 3 year old
 .. slug: playing-kingdomino-with-a-3-year-old
-.. date: 2017-12-29 22:20:12 UTC+01:00
+.. date: 2018-01-17 22:20:12 UTC+01:00
 .. tags: 
 .. category: 
 .. link: 
@@ -15,7 +15,7 @@ it has won Spiel des Yahres for 2017, so it is pretty well known by now. It is a
 might take me and my wife around half an hour to play a round and we can manage the rules
 even when exhausted after the day is over and before we go to bed.
 
-.. image:: /images/elen_kingdomino2.png
+.. image:: images/elen_kingdomino2.png
 
 I think a dedicated review [TODO link] might do a better job of explaining the rules than me,
 but for the purposes of this, lets summarize the two-player rule-set:
@@ -40,12 +40,13 @@ How does it look like when we are playing?
 After I finished my first game, I thought to myself, "These rules are simple enough to play with our little Elen".
 So before you try this at home. beware, that we have quite patient and calm kid, and even then I can manage a 20 minute session at best.
 The session might end abruptly for any of following reasons:
+
 * Elen no longer feels like playing
 * Two kings now have to live inside of the little castle tile, and can't be bothered to go do their job of claiming the new tiles.
 * The tile placement doesn't go according to her plan, for example she now has to have two distinct lakes in her kingdom instead of a single large one and she concedes
 * The tile with a image of a dragon silhouette or lochness monster appears and suddenly it is much more important to figure out if the two kings, living in hte castle, will be safe from the monster, than playing the game by the rules. Alternatively, dragon eats the monster.
 
-.. image:: /images/elen_kingdomino.png
+.. image:: images/elen_kingdomino.png
 
 We do actually finish more games than not, and even those times when we don't finish properly, it usually morph into something similarly interesting,
 like free-form kingdom building, or funny discussions about kingdom's food chain, that probably will include both dragon, two types of water-monster and a man-sized spider.
@@ -55,6 +56,7 @@ Modding the rules
 ~~~~~~~~~~~~~~~~~
 
 So, how do we actually play? Mostly by me prompting her to do stuff she should on her turn:
+
 * Choose the new tile you like with your king
 * Now place the old tile somewhere in your kingdom
 
