@@ -1,7 +1,7 @@
 .. title: Playing Haligali with a 3 year old
 .. slug: playing-haligali-with-a-3-year-old
 .. date: 2017-12-31 09:36:36 UTC+01:00
-.. tags: 
+.. tags: draft
 .. category: 
 .. link: 
 .. description: 
