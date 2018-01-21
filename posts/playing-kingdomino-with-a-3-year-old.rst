@@ -15,7 +15,7 @@ it has won Spiel des Yahres for 2017, so it is pretty well known by now. It is a
 might take me and my wife around half an hour to play a round and we can manage the rules
 even when exhausted after the day is over and before we go to bed.
 
-.. image:: /images/elen_kingdomino2.jog
+.. image:: /images/elen_kingdomino2.jpg
 
 I think `a professional might do a better job of explaining the rules 
 <https://www.youtube.com/watch?v=smbwBPmP4Ms/>`_ than me,
