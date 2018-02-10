@@ -1,7 +1,7 @@
 .. title: Playing Kingdomino with a 3 year old
 .. slug: playing-kingdomino-with-a-3-year-old
 .. date: 2018-01-17 22:20:12 UTC+01:00
-.. tags: draft
+.. tags: 
 .. category: 
 .. link: 
 .. description: 
