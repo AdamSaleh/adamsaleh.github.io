@@ -12,6 +12,7 @@
 
 ;;; Custom configuration for the export.
 
+ (load "/home/asaleh/projects/adamsaleh.github.io/plugins/orgmode/htmlize.el")
 ;;; Add any custom configuration that you would like to 'conf.el'.
 (setq nikola-use-pygments t
       org-export-with-toc nil
